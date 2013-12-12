@@ -3,20 +3,18 @@ package org.grails.plugins.swaggerdoc
 import grails.converters.JSON
 
 class DummyApiController {
-    def dummies = []
-
-    def getDummy(String name) {
-        def result = new Dummy(name: "test")
+    def show(Long id) {
+        def result = Dummy.get(id)
         render result as JSON
     }
 
-    def insertDummy(String name) {
-        dummies << new Dummy(name: name)
+    def save(String name) {
+        def result = new Dummy(name:name).save()
         response.status = 204
-        render ""
+        render result as JSON
     }
 
-    def allDummies() {
-        render dummies as JSON
+    def index() {
+        render Dummy.list() as JSON
     }
 }
